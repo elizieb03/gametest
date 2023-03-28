@@ -1,0 +1,22 @@
+{
+  "builds": [{
+      "src": "gametest/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
+  },
+  {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "gametest/static" }
+  }],
+  "routes": [
+      {
+          "src": "gametest/static/(.*)",
+          "dest": "gametest/static/$1"
+      },
+      {
+          "src": "/(.*)",
+          "dest": "gametest/wsgi.py"
+      }
+  ]
+}
